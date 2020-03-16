@@ -1,6 +1,97 @@
-<div class="company-info">
-                                <ul>
-                                    <li><i class="flaticon-close-envelope"></i><a href="#"><?php echo get_theme_mod('header_email');?></a></li>
-                                    <li><i class="flaticon-telephone"></i><a href="#"><?php echo get_theme_mod('header_phone');?></a></li>
-                                </ul>
-                            </div>
+<html <?php language_attributes(); ?>>
+
+  <meta charset="<?php bloginfo( 'charset' ); ?>">
+   <title><?php bloginfo("name");?></title>
+   <style>
+    .nav_area{background-color: <?php echo get_theme_mod('header_bg_color');?>!important;}
+</style>
+
+<?php wp_head();?>
+
+
+ <div class="header_top_bar_content">
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-9 company">
+          <div class="company-info">
+              <ul>
+                  <li><i class="flaticon-close-envelope"></i><a href="#"><?php echo get_theme_mod('header_email');?></a></li>
+                  <li><i class="flaticon-telephone"></i><a href="#"><?php echo get_theme_mod('header_phone');?></a></li>
+              </ul>
+          </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-3 social">
+          <?php get_search_form();?>
+      </div>
+  </div>
+            
+    <div class="col-md-3 logo">
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo get_theme_mod('logo');?>" alt=""></a>
+        <div class="responsive-menu"></div>
+    </div>
+                            
+  <div class="col-md-9">
+      <div class="nav-wrapper">
+          <nav class="main-navigation">
+              <?php
+                  wp_nav_menu(
+                      array(
+                          'theme_location'  => 'header_top_menu', 
+                          'container_class' => 'main-navigation',
+                          'items_wrap'      => '<ul class="main-menu">%3$s</ul>'
+                      ) 
+                  );
+              ?>
+          </nav>
+      </div>
+  </div>
+  
+  
+  
+  
+  <!-- Footer
+    ============================================= -->
+    <div id="footer-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 tac">
+                    <?php dynamic_sidebar("footer-contact");?>
+                </div>
+            </div>
+            <div class="row">
+                <?php dynamic_sidebar("footer");?>
+            </div>
+        </div>
+    </div>
+    <!-- /Footer  -->
+    
+    
+    
+    functions.php
+    
+function my_widgets_sidebar(){    
+    register_sidebar( array(
+		//footer widget
+		'name'          => esc_html__( 'Footer widget', 'carnews' ),
+		'description'   =>esc_html__( 'This is footer  description .....', 'carnews' ),
+		'id'            => 'footer',
+		'before_widget' => '<div class="col-md-3 col-sm-6 col-xs-12"><div class="footer-widget">',
+		'after_widget'  => '</div></div>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2> ',
+	) );
+
+		register_sidebar( array(
+		//footer bottom contact
+		'name'          => esc_html__( 'Footer Contact widget', 'carnews' ),
+		'description'   =>esc_html__( 'This is footer contact  description .....', 'carnews' ),
+		'id'            => 'footer-contact',
+		'before_widget' => '<div class="emergency-call mrb-50">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2> ',
+	) );
+
+
+}
+add_action( 'widgets_init', 'my_widgets_sidebar' );
+
+                            
